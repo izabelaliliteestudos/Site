@@ -118,20 +118,32 @@
             padding: 2rem;
             border: 1px solid var(--accent-color);
             background-color: #FFFCF5;
+            text-align: left;
         }
 
         .paywall-modal h2 {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             margin-top: 0;
+            text-align: center;
             color: var(--text-color);
+        }
+
+        .report-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 0.5rem;
         }
 
         .price-tag {
             font-size: 1.8rem;
             font-weight: 600;
             color: var(--accent-color);
-            margin: 1.2rem 0;
+            text-align: center;
+            margin: 1.5rem 0 0.5rem 0;
         }
 
         .btn-pix {
@@ -181,32 +193,58 @@
         <button onclick="solicitarPrecificacao()">Gerar Relatório Profissional</button>
 
         <div class="paywall-modal" id="paywall">
-            <h2>Cálculo Estratégico Concluído</h2>
-            <p style="color: #4A4A4A; line-height: 1.6;">Seu dossiê detalhado, contendo o valor final sugerido para venda e a sua projeção de lucro líquido, foi gerado com sucesso.</p>
-            <div class="price-tag">R$ 1,00</div>
-            <p style="font-size: 0.85rem; color: #7A7A7A;">Efetue o pagamento simbólico para desbloquear e visualizar os resultados da sua peça.</p>
-            <button class="btn-pix">Pagar via Pix</button>
+            <h2>Dossiê de Precificação</h2>
+            
+            <div class="report-line">
+                <span>Mão de Obra:</span>
+                <strong id="res-mao-de-obra">R$ 0,00</strong>
+            </div>
+            <div class="report-line">
+                <span>Custo Total de Produção:</span>
+                <strong id="res-custo-total">R$ 0,00</strong>
+            </div>
+            <div class="report-line">
+                <span>Lucro Líquido do Atelier:</span>
+                <strong id="res-lucro-liquido">R$ 0,00</strong>
+            </div>
+
+            <div class="price-tag" style="font-size: 1rem; color: #7A7A7A; font-weight: 400; margin-bottom: 0;">Preço Sugerido de Venda</div>
+            <div class="price-tag" id="res-preco-venda" style="margin-top: 0;">R$ 0,00</div>
+            
+            <p style="font-size: 0.8rem; color: #7A7A7A; text-align: center; margin-top: 1.5rem;">[Modo de Teste Dinâmico Ativo]</p>
         </div>
     </div>
 
     <script>
         function solicitarPrecificacao() {
-            const materiais = document.getElementById('materiais').value;
-            const valorHora = document.getElementById('valor-hora').value;
-            const horas = document.getElementById('horas').value;
-            const extras = document.getElementById('extras').value;
-            const lucro = document.getElementById('lucro').value;
+            // Captura dos valores inseridos na interface
+            const materiais = parseFloat(document.getElementById('materiais').value);
+            const valorHora = parseFloat(document.getElementById('valor-hora').value);
+            const horas = parseFloat(document.getElementById('horas').value);
+            const extras = parseFloat(document.getElementById('extras').value);
+            const lucro = parseFloat(document.getElementById('lucro').value);
 
-            if(!materiais || !valorHora || !horas || !extras || !lucro) {
+            // Validação de segurança para campos vazios
+            if(isNaN(materiais) || isNaN(valorHora) || isNaN(horas) || isNaN(extras) || isNaN(lucro)) {
                 alert("Por gentileza, preencha todos os campos para garantirmos a máxima precisão do seu cálculo.");
                 return;
             }
 
-            // Exibe a tela de cobrança com elegância
+            // EXECUÇÃO DA LÓGICA MATEMÁTICA
+            const custoMaoDeObra = valorHora * horas;
+            const custoTotal = materiais + custoMaoDeObra + extras;
+            const valorLucro = custoTotal * (lucro / 100);
+            const precoVenda = custoTotal + valorLucro;
+
+            // INSERÇÃO DOS RESULTADOS NA INTERFACE VISUAL
+            document.getElementById('res-mao-de-obra').innerText = "R$ " + custoMaoDeObra.toFixed(2).replace('.', ',');
+            document.getElementById('res-custo-total').innerText = "R$ " + custoTotal.toFixed(2).replace('.', ',');
+            document.getElementById('res-lucro-liquido').innerText = "R$ " + valorLucro.toFixed(2).replace('.', ',');
+            document.getElementById('res-preco-venda').innerText = "R$ " + precoVenda.toFixed(2).replace('.', ',');
+
+            // Exibição do bloco de resultados com animação suave
             const paywall = document.getElementById('paywall');
             paywall.style.display = 'block';
-            
-            // Rola a página suavemente
             paywall.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
