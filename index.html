@@ -9,7 +9,7 @@
         :root {
             --bg-color: #FAF9F6;
             --text-color: #2C2C2C;
-            --accent-color: #D4AF37; /* Dourado Premium */
+            --accent-color: #D4AF37;
             --border-color: #EAEAEA;
             --card-bg: #FFFFFF;
         }
@@ -116,7 +116,48 @@
             background-color: #000000;
         }
 
-        /* ESTILIZAÇÃO PREMIUM DO DOSSIÊ (RELATÓRIO) */
+        /* ESTILIZAÇÃO DO PASSO DE PAGAMENTO */
+        .payment-step {
+            display: none;
+            margin-top: 3.5rem;
+            padding: 2.5rem;
+            border: 1px solid var(--accent-color);
+            background-color: #FFFCF5;
+            text-align: center;
+        }
+
+        .payment-step h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-top: 0;
+            color: var(--text-color);
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin: 1.5rem 0;
+        }
+
+        .btn-pix {
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-pix:hover {
+            background-color: #B8962E;
+        }
+
+        /* ESTILIZAÇÃO DO DOSSIÊ OCULTO */
         .dossier-wrapper {
             display: none;
             margin-top: 3.5rem;
@@ -213,14 +254,6 @@
             background-color: var(--text-color);
             color: #FFFFFF;
         }
-
-        @media print {
-            body { background: #FFF; }
-            .container { box-shadow: none; border: none; }
-            .form-grid, .btn-primary { display: none; }
-            .dossier-wrapper { display: block !important; margin-top: 0; padding-top: 0; border: none; }
-            .btn-secondary { display: none; }
-        }
     </style>
 </head>
 <body>
@@ -256,9 +289,20 @@
             </div>
         </div>
 
-        <button class="btn-primary" onclick="solicitarPrecificacao()">Gerar Dossiê de Valor</button>
+        <button class="btn-primary" onclick="exibirCobranca()">Gerar Dossiê de Valor</button>
 
-        <div class="dossier-wrapper" id="paywall">
+        <!-- PASSO DE COBRANÇA (PAYWALL) -->
+        <div class="payment-step" id="payment-step">
+            <h2>Cálculo Concluído</h2>
+            <p style="color: #4A4A4A; font-size: 0.95rem; line-height: 1.6;">O seu dossiê detalhado foi formulado com precisão e encontra-se bloqueado por medidas de segurança.</p>
+            <div class="price-tag">R$ 1,00</div>
+            <p style="font-size: 0.8rem; color: #7A7A7A; margin-bottom: 2rem;">Realize o investimento simbólico para desbloquear a visualização imediata do seu laudo.</p>
+            
+            <button class="btn-pix" onclick="simularPagamentoAprovado()">Pagar via Pix (Teste)</button>
+        </div>
+
+        <!-- O DOSSIÊ EXCLUSIVO (BLOQUEADO INICIALMENTE) -->
+        <div class="dossier-wrapper" id="dossier-wrapper">
             <div class="dossier-header">
                 <h2>Dossiê Exclusivo</h2>
                 <p>A inteligência financeira por trás do feito à mão</p>
@@ -289,7 +333,8 @@
     </div>
 
     <script>
-        function solicitarPrecificacao() {
+        // Etapa 1: Valida os dados e mostra a tela de pagamento
+        function exibirCobranca() {
             const materiais = parseFloat(document.getElementById('materiais').value);
             const valorHora = parseFloat(document.getElementById('valor-hora').value);
             const horas = parseFloat(document.getElementById('horas').value);
@@ -297,23 +342,43 @@
             const lucro = parseFloat(document.getElementById('lucro').value);
 
             if(isNaN(materiais) || isNaN(valorHora) || isNaN(horas) || isNaN(extras) || isNaN(lucro)) {
-                alert("Por favor, preencha todos os campos do formulário.");
+                alert("Por favor, preencha todos os campos do formulário de maneira apropriada.");
                 return;
             }
 
+            // Oculta o dossiê (caso já esteja aberto) e exibe o pagamento
+            document.getElementById('dossier-wrapper').style.display = 'none';
+            const paymentStep = document.getElementById('payment-step');
+            paymentStep.style.display = 'block';
+            paymentStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Etapa 2: Simula o aviso do banco de que o Pix foi pago e revela o cálculo
+        function simularPagamentoAprovado() {
+            // Captura os valores preenchidos
+            const materiais = parseFloat(document.getElementById('materiais').value);
+            const valorHora = parseFloat(document.getElementById('valor-hora').value);
+            const horas = parseFloat(document.getElementById('horas').value);
+            const extras = parseFloat(document.getElementById('extras').value);
+            const lucro = parseFloat(document.getElementById('lucro').value);
+
+            // Realiza a operação matemática (Futuramente isso sairá daqui e irá para o servidor)
             const custoMaoDeObra = valorHora * horas;
             const custoTotal = materiais + custoMaoDeObra + extras;
             const valorLucro = custoTotal * (lucro / 100);
             const precoVenda = custoTotal + valorLucro;
 
+            // Altera o texto visual do resultado
             document.getElementById('res-mao-de-obra').innerText = "R$ " + custoMaoDeObra.toFixed(2).replace('.', ',');
             document.getElementById('res-custo-total').innerText = "R$ " + custoTotal.toFixed(2).replace('.', ',');
             document.getElementById('res-lucro-liquido').innerText = "R$ " + valorLucro.toFixed(2).replace('.', ',');
             document.getElementById('res-preco-venda').innerText = "R$ " + precoVenda.toFixed(2).replace('.', ',');
 
-            const paywall = document.getElementById('paywall');
-            paywall.style.display = 'block';
-            paywall.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Oculta a área de pagamento e revela o Dossiê
+            document.getElementById('payment-step').style.display = 'none';
+            const dossier = document.getElementById('dossier-wrapper');
+            dossier.style.display = 'block';
+            dossier.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
 
