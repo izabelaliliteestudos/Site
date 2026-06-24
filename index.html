@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Precificação Exclusiva | Atelier</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #FAF9F6;
@@ -22,6 +22,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 2rem 0;
         }
 
         .container {
@@ -29,42 +30,54 @@
             padding: 3rem;
             border-radius: 4px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-            max-width: 450px;
-            width: 100%;
+            max-width: 500px;
+            width: 90%;
             text-align: center;
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             color: var(--text-color);
         }
 
         p.subtitle {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #7A7A7A;
             margin-bottom: 2.5rem;
         }
 
-        .input-group {
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
             text-align: left;
             margin-bottom: 1.5rem;
         }
 
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group.full-width {
+            grid-column: span 2;
+        }
+
         label {
-            display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
             color: var(--text-color);
+            font-weight: 500;
         }
 
         input {
             width: 100%;
-            padding: 0.8rem;
+            padding: 0.9rem;
             border: 1px solid var(--border-color);
             border-radius: 2px;
             font-family: 'Montserrat', sans-serif;
@@ -81,7 +94,7 @@
 
         button {
             width: 100%;
-            padding: 1rem;
+            padding: 1.2rem;
             background-color: var(--text-color);
             color: #FFFFFF;
             border: none;
@@ -89,7 +102,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 1rem;
@@ -101,24 +114,34 @@
 
         .paywall-modal {
             display: none;
-            margin-top: 2rem;
-            padding: 1.5rem;
+            margin-top: 2.5rem;
+            padding: 2rem;
             border: 1px solid var(--accent-color);
             background-color: #FFFCF5;
         }
 
         .paywall-modal h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-top: 0;
             color: var(--text-color);
         }
 
         .price-tag {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: var(--accent-color);
-            margin: 1rem 0;
+            margin: 1.2rem 0;
+        }
+
+        .btn-pix {
+            background-color: var(--accent-color);
+            color: #FFF;
+            margin-top: 1.5rem;
+        }
+
+        .btn-pix:hover {
+            background-color: #B8962E;
         }
     </style>
 </head>
@@ -126,45 +149,65 @@
 
     <div class="container">
         <h1>Consultoria de Valor</h1>
-        <p class="subtitle">A arte de precificar com precisão</p>
+        <p class="subtitle">A arte de precificar com primor e precisão</p>
 
-        <div class="input-group">
-            <label for="materiais">Custo dos Materiais (R$)</label>
-            <input type="number" id="materiais" placeholder="Ex: 45.50" step="0.01">
+        <div class="form-grid">
+            <div class="input-group full-width">
+                <label for="materiais">Custo Total dos Materiais (R$)</label>
+                <input type="number" id="materiais" placeholder="Ex: 45.50" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="valor-hora">Valor da Sua Hora (R$)</label>
+                <input type="number" id="valor-hora" placeholder="Ex: 25.00" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="horas">Horas de Dedicação</label>
+                <input type="number" id="horas" placeholder="Ex: 4" step="0.5">
+            </div>
+
+            <div class="input-group">
+                <label for="extras">Embalagem & Fixos (R$)</label>
+                <input type="number" id="extras" placeholder="Ex: 8.50" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="lucro">Margem de Lucro (%)</label>
+                <input type="number" id="lucro" placeholder="Ex: 30" step="1">
+            </div>
         </div>
 
-        <div class="input-group">
-            <label for="horas">Horas de Dedicação</label>
-            <input type="number" id="horas" placeholder="Ex: 4">
-        </div>
-
-        <button onclick="solicitarPrecificacao()">Revelar Precificação</button>
+        <button onclick="solicitarPrecificacao()">Gerar Relatório Profissional</button>
 
         <div class="paywall-modal" id="paywall">
-            <h2>Cálculo Concluído</h2>
-            <p>Seu relatório detalhado de precificação está pronto.</p>
+            <h2>Cálculo Estratégico Concluído</h2>
+            <p style="color: #4A4A4A; line-height: 1.6;">Seu dossiê detalhado, contendo o valor final sugerido para venda e a sua projeção de lucro líquido, foi gerado com sucesso.</p>
             <div class="price-tag">R$ 1,00</div>
-            <p style="font-size: 0.8rem; color: #7A7A7A;">Para visualizar o valor final sugerido e a margem de lucro, proceda com o pagamento.</p>
-            <button style="background-color: var(--accent-color); color: #FFF;">Pagar via Pix</button>
+            <p style="font-size: 0.85rem; color: #7A7A7A;">Efetue o pagamento simbólico para desbloquear e visualizar os resultados da sua peça.</p>
+            <button class="btn-pix">Pagar via Pix</button>
         </div>
     </div>
 
     <script>
         function solicitarPrecificacao() {
             const materiais = document.getElementById('materiais').value;
+            const valorHora = document.getElementById('valor-hora').value;
             const horas = document.getElementById('horas').value;
+            const extras = document.getElementById('extras').value;
+            const lucro = document.getElementById('lucro').value;
 
-            if(!materiais || !horas) {
-                alert("Por gentileza, preencha os custos e as horas de dedicação.");
+            if(!materiais || !valorHora || !horas || !extras || !lucro) {
+                alert("Por gentileza, preencha todos os campos para garantirmos a máxima precisão do seu cálculo.");
                 return;
             }
 
-            // Aqui entra a lógica que futuramente conectará ao seu Back-end.
-            // Por enquanto, apenas exibimos a tela de cobrança.
-            document.getElementById('paywall').style.display = 'block';
+            // Exibe a tela de cobrança com elegância
+            const paywall = document.getElementById('paywall');
+            paywall.style.display = 'block';
             
-            // Rola a página suavemente até o modal de pagamento
-            document.getElementById('paywall').scrollIntoView({ behavior: 'smooth' });
+            // Rola a página suavemente
+            paywall.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
 
