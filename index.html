@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Precificação Exclusiva | Atelier</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #FAF9F6;
             --text-color: #2C2C2C;
-            --accent-color: #D4AF37; /* Dourado suave */
-            --border-color: #E0E0E0;
+            --accent-color: #D4AF37; /* Dourado Premium */
+            --border-color: #EAEAEA;
+            --card-bg: #FFFFFF;
         }
 
         body {
@@ -22,31 +23,34 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 2rem 0;
+            padding: 3rem 0;
         }
 
         .container {
             background: #FFFFFF;
-            padding: 3rem;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-            max-width: 500px;
+            padding: 3.5rem;
+            border-radius: 2px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.02);
+            max-width: 550px;
             width: 90%;
             text-align: center;
+            border: 1px solid var(--border-color);
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
-            color: var(--text-color);
+            letter-spacing: 0.5px;
         }
 
         p.subtitle {
-            font-size: 0.9rem;
-            color: #7A7A7A;
-            margin-bottom: 2.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8A8A8A;
+            margin-bottom: 3rem;
         }
 
         .form-grid {
@@ -54,7 +58,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
             text-align: left;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .input-group {
@@ -67,93 +71,155 @@
         }
 
         label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            color: var(--text-color);
+            letter-spacing: 1.5px;
+            margin-bottom: 0.6rem;
+            color: #555555;
             font-weight: 500;
         }
 
         input {
             width: 100%;
-            padding: 0.9rem;
+            padding: 1rem;
             border: 1px solid var(--border-color);
-            border-radius: 2px;
+            border-radius: 0;
             font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             box-sizing: border-box;
-            background-color: transparent;
-            transition: border-color 0.3s ease;
+            background-color: #FCFCFC;
+            transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
             border-color: var(--accent-color);
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.05);
         }
 
-        button {
+        .btn-primary {
             width: 100%;
-            padding: 1.2rem;
+            padding: 1.3rem;
             background-color: var(--text-color);
             color: #FFFFFF;
             border: none;
-            border-radius: 2px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-size: 0.85rem;
+            font-weight: 500;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-top: 1rem;
         }
 
-        button:hover {
+        .btn-primary:hover {
             background-color: #000000;
         }
 
-        .paywall-modal {
+        /* ESTILIZAÇÃO PREMIUM DO DOSSIÊ (RELATÓRIO) */
+        .dossier-wrapper {
             display: none;
-            margin-top: 2.5rem;
-            padding: 2rem;
-            border: 1px solid var(--accent-color);
-            background-color: #FFFCF5;
+            margin-top: 3.5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-color);
             text-align: left;
         }
 
-        .paywall-modal h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-top: 0;
+        .dossier-header {
             text-align: center;
-            color: var(--text-color);
+            margin-bottom: 2rem;
         }
 
-        .report-line {
+        .dossier-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .dossier-header p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        .metric-card {
+            background: #FAFAFA;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-left: 2px solid var(--text-color);
             display: flex;
             justify-content: space-between;
-            margin: 1rem 0;
-            font-size: 0.95rem;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 0.5rem;
+            align-items: center;
         }
 
-        .price-tag {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--accent-color);
+        .metric-card.accent {
+            border-left-color: var(--accent-color);
+            background: #FFFDF9;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .metric-value {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .final-price-box {
             text-align: center;
-            margin: 1.5rem 0 0.5rem 0;
+            background: var(--text-color);
+            color: #FFFFFF;
+            padding: 2.5rem 1rem;
+            margin: 2rem 0;
+            position: relative;
         }
 
-        .btn-pix {
-            background-color: var(--accent-color);
-            color: #FFF;
-            margin-top: 1.5rem;
+        .final-price-box .title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #CCCCCC;
+            margin-bottom: 0.5rem;
         }
 
-        .btn-pix:hover {
-            background-color: #B8962E;
+        .final-price-box .value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 300;
+            color: var(--accent-color);
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 1rem;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-color);
+            color: #FFFFFF;
+        }
+
+        @media print {
+            body { background: #FFF; }
+            .container { box-shadow: none; border: none; }
+            .form-grid, .btn-primary { display: none; }
+            .dossier-wrapper { display: block !important; margin-top: 0; padding-top: 0; border: none; }
+            .btn-secondary { display: none; }
         }
     </style>
 </head>
@@ -161,88 +227,90 @@
 
     <div class="container">
         <h1>Consultoria de Valor</h1>
-        <p class="subtitle">A arte de precificar com primor e precisão</p>
+        <p class="subtitle">A precificação como obra de arte</p>
 
         <div class="form-grid">
             <div class="input-group full-width">
-                <label for="materiais">Custo Total dos Materiais (R$)</label>
-                <input type="number" id="materiais" placeholder="Ex: 45.50" step="0.01">
+                <label for="materiais">Insumos e Materiais (R$)</label>
+                <input type="number" id="materiais" placeholder="0.00" step="0.01">
             </div>
 
             <div class="input-group">
-                <label for="valor-hora">Valor da Sua Hora (R$)</label>
-                <input type="number" id="valor-hora" placeholder="Ex: 25.00" step="0.01">
+                <label for="valor-hora">Sua Hora de Trabalho (R$)</label>
+                <input type="number" id="valor-hora" placeholder="0.00" step="0.01">
             </div>
 
             <div class="input-group">
-                <label for="horas">Horas de Dedicação</label>
-                <input type="number" id="horas" placeholder="Ex: 4" step="0.5">
+                <label for="horas">Tempo Dedicado (Horas)</label>
+                <input type="number" id="horas" placeholder="0">
             </div>
 
             <div class="input-group">
-                <label for="extras">Embalagem & Fixos (R$)</label>
-                <input type="number" id="extras" placeholder="Ex: 8.50" step="0.01">
+                <label for="extras">Custos Fixos & Embalagem (R$)</label>
+                <input type="number" id="extras" placeholder="0.00" step="0.01">
             </div>
 
             <div class="input-group">
                 <label for="lucro">Margem de Lucro (%)</label>
-                <input type="number" id="lucro" placeholder="Ex: 30" step="1">
+                <input type="number" id="lucro" placeholder="0">
             </div>
         </div>
 
-        <button onclick="solicitarPrecificacao()">Gerar Relatório Profissional</button>
+        <button class="btn-primary" onclick="solicitarPrecificacao()">Gerar Dossiê de Valor</button>
 
-        <div class="paywall-modal" id="paywall">
-            <h2>Dossiê de Precificação</h2>
+        <div class="dossier-wrapper" id="paywall">
+            <div class="dossier-header">
+                <h2>Dossiê Exclusivo</h2>
+                <p>A inteligência financeira por trás do feito à mão</p>
+            </div>
             
-            <div class="report-line">
-                <span>Mão de Obra:</span>
-                <strong id="res-mao-de-obra">R$ 0,00</strong>
+            <div class="metric-card">
+                <span class="metric-label">Mão de Obra Alocada</span>
+                <span class="metric-value" id="res-mao-de-obra">R$ 0,00</span>
             </div>
-            <div class="report-line">
-                <span>Custo Total de Produção:</span>
-                <strong id="res-custo-total">R$ 0,00</strong>
+            
+            <div class="metric-card">
+                <span class="metric-label">Custo Operacional Total</span>
+                <span class="metric-value" id="res-custo-total">R$ 0,00</span>
             </div>
-            <div class="report-line">
-                <span>Lucro Líquido do Atelier:</span>
-                <strong id="res-lucro-liquido">R$ 0,00</strong>
+            
+            <div class="metric-card accent">
+                <span class="metric-label">Retorno de Lucro Líquido</span>
+                <span class="metric-value" style="color: #B8962E; font-weight: 600;" id="res-lucro-liquido">R$ 0,00</span>
             </div>
 
-            <div class="price-tag" style="font-size: 1rem; color: #7A7A7A; font-weight: 400; margin-bottom: 0;">Preço Sugerido de Venda</div>
-            <div class="price-tag" id="res-preco-venda" style="margin-top: 0;">R$ 0,00</div>
+            <div class="final-price-box">
+                <div class="title">Preço Sugerido para Comercialização</div>
+                <div class="value" id="res-preco-venda">R$ 0,00</div>
+            </div>
             
-            <p style="font-size: 0.8rem; color: #7A7A7A; text-align: center; margin-top: 1.5rem;">[Modo de Teste Dinâmico Ativo]</p>
+            <button class="btn-secondary" onclick="window.print()">Guardar ou Imprimir Relatório</button>
         </div>
     </div>
 
     <script>
         function solicitarPrecificacao() {
-            // Captura dos valores inseridos na interface
             const materiais = parseFloat(document.getElementById('materiais').value);
             const valorHora = parseFloat(document.getElementById('valor-hora').value);
             const horas = parseFloat(document.getElementById('horas').value);
             const extras = parseFloat(document.getElementById('extras').value);
             const lucro = parseFloat(document.getElementById('lucro').value);
 
-            // Validação de segurança para campos vazios
             if(isNaN(materiais) || isNaN(valorHora) || isNaN(horas) || isNaN(extras) || isNaN(lucro)) {
-                alert("Por gentileza, preencha todos os campos para garantirmos a máxima precisão do seu cálculo.");
+                alert("Por favor, preencha todos os campos do formulário.");
                 return;
             }
 
-            // EXECUÇÃO DA LÓGICA MATEMÁTICA
             const custoMaoDeObra = valorHora * horas;
             const custoTotal = materiais + custoMaoDeObra + extras;
             const valorLucro = custoTotal * (lucro / 100);
             const precoVenda = custoTotal + valorLucro;
 
-            // INSERÇÃO DOS RESULTADOS NA INTERFACE VISUAL
             document.getElementById('res-mao-de-obra').innerText = "R$ " + custoMaoDeObra.toFixed(2).replace('.', ',');
             document.getElementById('res-custo-total').innerText = "R$ " + custoTotal.toFixed(2).replace('.', ',');
             document.getElementById('res-lucro-liquido').innerText = "R$ " + valorLucro.toFixed(2).replace('.', ',');
             document.getElementById('res-preco-venda').innerText = "R$ " + precoVenda.toFixed(2).replace('.', ',');
 
-            // Exibição do bloco de resultados com animação suave
             const paywall = document.getElementById('paywall');
             paywall.style.display = 'block';
             paywall.scrollIntoView({ behavior: 'smooth', block: 'start' });
