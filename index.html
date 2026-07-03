@@ -6,249 +6,87 @@
     <title>Precificação Exclusiva | Atelier</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #FAF9F6;
-            --text-color: #2C2C2C;
-            --accent-color: #D4AF37;
-            --border-color: #EAEAEA;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 3rem 0;
-        }
-
-        .container {
-            background: #FFFFFF;
-            padding: 3.5rem;
-            border-radius: 2px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.02);
-            max-width: 550px;
-            width: 90%;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        p.subtitle {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #8A8A8A;
-            margin-bottom: 3rem;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-
+        :root { --bg-color: #FAF9F6; --text-color: #2C2C2C; --accent-color: #D4AF37; --border-color: #EAEAEA; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 3rem 0; }
+        .container { background: #FFFFFF; padding: 3.5rem; border-radius: 2px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.02); max-width: 550px; width: 90%; text-align: center; border: 1px solid var(--border-color); }
+        h1 { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        p.subtitle { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #8A8A8A; margin-bottom: 3rem; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; text-align: left; margin-bottom: 2rem; }
         .input-group { display: flex; flex-direction: column; }
         .input-group.full-width { grid-column: span 2; }
-
-        label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.6rem;
-            color: #555555;
-            font-weight: 500;
-        }
-
-        input {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--border-color);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.95rem;
-            box-sizing: border-box;
-            background-color: #FCFCFC;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            background-color: #FFFFFF;
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 1.3rem;
-            background-color: var(--text-color);
-            color: #FFFFFF;
-            border: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
+        label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.6rem; color: #555555; font-weight: 500; }
+        input { width: 100%; padding: 1rem; border: 1px solid var(--border-color); font-family: 'Montserrat', sans-serif; font-size: 0.95rem; box-sizing: border-box; background-color: #FCFCFC; transition: all 0.3s ease; }
+        input:focus { outline: none; border-color: var(--accent-color); background-color: #FFFFFF; }
+        .btn-primary { width: 100%; padding: 1.3rem; background-color: var(--text-color); color: #FFFFFF; border: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: background-color 0.3s ease; }
         .btn-primary:hover { background-color: #000000; }
-
-        /* ÁREA DE PAGAMENTO DINÂMICA */
-        .payment-step {
-            display: none;
-            margin-top: 3.5rem;
-            padding: 2.5rem;
-            border: 1px solid var(--accent-color);
-            background-color: #FFFCF5;
-            text-align: center;
-        }
-
-        .payment-step h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            margin-top: 0;
-        }
-        
-        .pix-code-box {
-            width: 100%;
-            padding: 0.8rem;
-            font-family: monospace;
-            font-size: 0.8rem;
-            border: 1px dashed var(--accent-color);
-            background: #FFF;
-            color: #555;
-            text-align: center;
-            cursor: pointer;
-            margin-bottom: 1rem;
-            box-sizing: border-box;
-        }
-
-        /* ÁREA DO RELATÓRIO */
-        .dossier-wrapper {
-            display: none;
-            margin-top: 3.5rem;
-            padding-top: 3rem;
-            border-top: 1px solid var(--border-color);
-            text-align: left;
-        }
-
+        .payment-step { display: none; margin-top: 3.5rem; padding: 2.5rem; border: 1px solid var(--accent-color); background-color: #FFFCF5; text-align: center; }
+        .payment-step h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-top: 0; }
+        .pix-code-box { width: 100%; padding: 0.8rem; font-family: monospace; font-size: 0.8rem; border: 1px dashed var(--accent-color); background: #FFF; color: #555; text-align: center; cursor: pointer; margin-bottom: 1rem; box-sizing: border-box; }
+        .dossier-wrapper { display: none; margin-top: 3.5rem; padding-top: 3rem; border-top: 1px solid var(--border-color); text-align: left; }
         .dossier-header { text-align: center; margin-bottom: 2rem; }
         .dossier-header h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin: 0 0 0.5rem 0; }
         .dossier-header p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; color: var(--accent-color); margin: 0; }
-
-        .metric-card {
-            background: #FAFAFA;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            border-left: 2px solid var(--text-color);
-            display: flex;
-            justify-content: space-between;
-        }
+        .metric-card { background: #FAFAFA; padding: 1.2rem; margin-bottom: 1rem; border-left: 2px solid var(--text-color); display: flex; justify-content: space-between; }
         .metric-card.accent { border-left-color: var(--accent-color); background: #FFFDF9; }
         .metric-label { font-size: 0.8rem; text-transform: uppercase; color: #666; }
         .metric-value { font-size: 1.05rem; font-weight: 500; }
-
-        .final-price-box {
-            text-align: center;
-            background: var(--text-color);
-            color: #FFFFFF;
-            padding: 2.5rem 1rem;
-            margin: 2rem 0;
-        }
+        .final-price-box { text-align: center; background: var(--text-color); color: #FFFFFF; padding: 2.5rem 1rem; margin: 2rem 0; }
         .final-price-box .title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: #CCC; margin-bottom: 0.5rem; }
         .final-price-box .value { font-size: 2.4rem; font-weight: 300; color: var(--accent-color); }
-
-        .btn-secondary {
-            width: 100%; padding: 1rem; background-color: transparent; color: var(--text-color);
-            border: 1px solid var(--text-color); text-transform: uppercase; font-size: 0.8rem; cursor: pointer;
-        }
+        .btn-secondary { width: 100%; padding: 1rem; background-color: transparent; color: var(--text-color); border: 1px solid var(--text-color); text-transform: uppercase; font-size: 0.8rem; cursor: pointer; }
         .btn-secondary:hover { background-color: var(--text-color); color: #FFFFFF; }
-
-        @media print {
-            body { background: #FFF; }
-            .container { box-shadow: none; border: none; }
-            .form-grid, .btn-primary, .payment-step { display: none !important; }
-            .dossier-wrapper { display: block !important; margin-top: 0; padding-top: 0; border: none; }
-            .btn-secondary { display: none; }
-        }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>Consultoria de Valor</h1>
         <p class="subtitle">A precificação como obra de arte</p>
 
         <div class="form-grid">
             <div class="input-group full-width">
-                <label for="materiais">Insumos e Materiais (R$)</label>
-                <input type="number" id="materiais" placeholder="0.00" step="0.01">
+                <label>Insumos e Materiais (R$)</label>
+                <input type="number" id="materiais" value="50.00" step="0.01">
             </div>
             <div class="input-group">
-                <label for="valor-hora">Sua Hora de Trabalho (R$)</label>
-                <input type="number" id="valor-hora" placeholder="0.00" step="0.01">
+                <label>Sua Hora (R$)</label>
+                <input type="number" id="valor-hora" value="35.00" step="0.01">
             </div>
             <div class="input-group">
-                <label for="horas">Tempo Dedicado (Horas)</label>
-                <input type="number" id="horas" placeholder="0">
+                <label>Tempo (Horas)</label>
+                <input type="number" id="horas" value="3">
             </div>
             <div class="input-group">
-                <label for="extras">Custos Fixos & Embalagem (R$)</label>
-                <input type="number" id="extras" placeholder="0.00" step="0.01">
+                <label>Custos Fixos (R$)</label>
+                <input type="number" id="extras" value="15.00" step="0.01">
             </div>
             <div class="input-group">
-                <label for="lucro">Margem de Lucro (%)</label>
-                <input type="number" id="lucro" placeholder="0">
+                <label>Lucro (%)</label>
+                <input type="number" id="lucro" value="30">
             </div>
         </div>
 
         <button class="btn-primary" onclick="iniciarProcesso()">Gerar Dossiê de Valor</button>
 
-        <div class="payment-step" id="payment-step">
-            </div>
+        <div class="payment-step" id="payment-step"></div>
 
         <div class="dossier-wrapper" id="dossier-wrapper">
             <div class="dossier-header">
                 <h2>Dossiê Exclusivo</h2>
                 <p>A inteligência financeira por trás do feito à mão</p>
             </div>
-            <div class="metric-card">
-                <span class="metric-label">Mão de Obra Alocada</span>
-                <span class="metric-value" id="res-mao-de-obra">R$ 0,00</span>
-            </div>
-            <div class="metric-card">
-                <span class="metric-label">Custo Operacional Total</span>
-                <span class="metric-value" id="res-custo-total">R$ 0,00</span>
-            </div>
-            <div class="metric-card accent">
-                <span class="metric-label">Retorno de Lucro Líquido</span>
-                <span class="metric-value" style="color: #B8962E; font-weight: 600;" id="res-lucro-liquido">R$ 0,00</span>
-            </div>
-            <div class="final-price-box">
-                <div class="title">Preço Sugerido para Comercialização</div>
-                <div class="value" id="res-preco-venda">R$ 0,00</div>
-            </div>
-            <button class="btn-secondary" onclick="window.print()">Guardar ou Imprimir Relatório</button>
+            <div class="metric-card"><span class="metric-label">Mão de Obra</span><span class="metric-value" id="res-mao-de-obra">R$ 0,00</span></div>
+            <div class="metric-card"><span class="metric-label">Custo Total</span><span class="metric-value" id="res-custo-total">R$ 0,00</span></div>
+            <div class="metric-card accent"><span class="metric-label">Lucro Líquido</span><span class="metric-value" style="color: #B8962E;" id="res-lucro-liquido">R$ 0,00</span></div>
+            <div class="final-price-box"><div class="title">Preço Sugerido</div><div class="value" id="res-preco-venda">R$ 0,00</div></div>
         </div>
     </div>
 
     <script>
-        // O LINK DO SEU SERVIDOR REPLIT FOI INSERIDO AQUI
         const SERVIDOR_URL = 'https://cc0e8e6c-9516-4dcb-8c19-b17d214b50e9-00-2n5e3bn1waxez.picard.replit.dev';
-        let intervaloVerificacao;
 
         async function iniciarProcesso() {
+            alert("PASSO 1: O botão foi clicado com sucesso. Lendo as variáveis...");
+
             const materiais = parseFloat(document.getElementById('materiais').value);
             const valorHora = parseFloat(document.getElementById('valor-hora').value);
             const horas = parseFloat(document.getElementById('horas').value);
@@ -256,71 +94,40 @@
             const lucro = parseFloat(document.getElementById('lucro').value);
 
             if(isNaN(materiais) || isNaN(valorHora) || isNaN(horas) || isNaN(extras) || isNaN(lucro)) {
-                alert("Por gentileza, preencha todos os campos do formulário.");
+                alert("ERRO: Campos vazios detectados.");
                 return;
             }
 
-            // Exibe a tela de carregamento elegante
-            document.getElementById('dossier-wrapper').style.display = 'none';
-            const paymentStep = document.getElementById('payment-step');
-            paymentStep.style.display = 'block';
-            paymentStep.innerHTML = '<h2 style="color: #7A7A7A; font-size: 1.2rem;">Estabelecendo conexão segura com o banco...</h2>';
-            paymentStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-            const dadosOperacao = { materiais, valorHora, horas, extras, lucro };
+            alert("PASSO 2: Dados matemáticos validados. Iniciando comunicação com o Replit...");
+            
+            document.getElementById('payment-step').style.display = 'block';
+            document.getElementById('payment-step').innerHTML = '<h2>Conectando ao banco...</h2>';
 
             try {
-                // Comunicação com o seu Replit
                 const resposta = await fetch(`${SERVIDOR_URL}/gerar-pix`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dadosOperacao)
+                    body: JSON.stringify({ materiais, valorHora, horas, extras, lucro })
                 });
                 
+                alert("PASSO 3: O Replit respondeu à chamada! Processando a resposta...");
                 const dadosServidor = await resposta.json();
 
                 if(dadosServidor.paymentId) {
-                    exibirInterfacePix(dadosServidor);
-                    monitorarPagamento(dadosServidor.paymentId);
+                    alert("PASSO 4: Sucesso absoluto! QR Code do Mercado Pago gerado.");
+                    document.getElementById('payment-step').innerHTML = `
+                        <h2>Liberação do Dossiê</h2>
+                        <img src="data:image/png;base64,${dadosServidor.qrCodeBase64}" alt="QR Code Pix" style="width: 200px; border-radius: 8px; margin-bottom: 1rem;">
+                        <input type="text" class="pix-code-box" value="${dadosServidor.qrCode}" readonly>
+                    `;
                 } else {
-                    paymentStep.innerHTML = '<h2>Ocorreu uma instabilidade na geração da chave. Tente novamente.</h2>';
+                    alert("ERRO: O servidor respondeu, mas não enviou o Pix. Verifique o console do Replit.");
                 }
             } catch (error) {
-                paymentStep.innerHTML = '<h2>Não foi possível comunicar com o servidor no momento.</h2>';
+                alert("FALHA CRÍTICA: Não foi possível alcançar o link do servidor Replit.");
                 console.error(error);
             }
         }
-
-        function exibirInterfacePix(dados) {
-            const paymentStep = document.getElementById('payment-step');
-            paymentStep.innerHTML = `
-                <h2>Liberação do Dossiê</h2>
-                <p style="font-size: 0.9rem; color: #555; margin-bottom: 2rem;">Realize o investimento simbólico de <strong>R$ 1,00</strong> para revelar seus cálculos exatos.</p>
-                
-                <img src="data:image/png;base64,${dados.qrCodeBase64}" alt="QR Code Pix" style="width: 200px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-                
-                <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #8A8A8A; margin-bottom: 0.5rem;">Ou copie o código Pix abaixo:</p>
-                <input type="text" class="pix-code-box" value="${dados.qrCode}" readonly onclick="copiarPix(this)">
-                
-                <p style="font-size: 0.8rem; color: var(--accent-color); margin-top: 1.5rem; font-style: italic;">
-                    Aguardando a confirmação do seu banco... O relatório surgirá automaticamente.
-                </p>
-            `;
-        }
-
-        function copiarPix(elemento) {
-            elemento.select();
-            document.execCommand('copy');
-            alert("Código Pix copiado com sucesso! Abra o aplicativo do seu banco para colar.");
-        }
-
-        function monitorarPagamento(paymentId) {
-            // Pergunta ao servidor a cada 5 segundos se o Pix foi pago
-            intervaloVerificacao = setInterval(async () => {
-                try {
-                    const resposta = await fetch(`${SERVIDOR_URL}/status-pix/${paymentId}`);
-                    const dados = await resposta.json();
-
-                    if(dados.status === 'approved') {
-                        clearInterval(intervaloVerificacao); // Para de perguntar
-                        revelarDossiêMagico(dados.doss
+    </script>
+</body>
+</html>
