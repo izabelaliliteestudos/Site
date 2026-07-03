@@ -11,7 +11,6 @@
             --text-color: #2C2C2C;
             --accent-color: #D4AF37;
             --border-color: #EAEAEA;
-            --card-bg: #FFFFFF;
         }
 
         body {
@@ -42,7 +41,6 @@
             font-weight: 600;
             font-size: 2.2rem;
             margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
         }
 
         p.subtitle {
@@ -61,14 +59,8 @@
             margin-bottom: 2rem;
         }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group.full-width {
-            grid-column: span 2;
-        }
+        .input-group { display: flex; flex-direction: column; }
+        .input-group.full-width { grid-column: span 2; }
 
         label {
             font-size: 0.7rem;
@@ -83,7 +75,6 @@
             width: 100%;
             padding: 1rem;
             border: 1px solid var(--border-color);
-            border-radius: 0;
             font-family: 'Montserrat', sans-serif;
             font-size: 0.95rem;
             box-sizing: border-box;
@@ -95,7 +86,6 @@
             outline: none;
             border-color: var(--accent-color);
             background-color: #FFFFFF;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.05);
         }
 
         .btn-primary {
@@ -112,11 +102,9 @@
             transition: background-color 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background-color: #000000;
-        }
+        .btn-primary:hover { background-color: #000000; }
 
-        /* ESTILIZAÇÃO DO PASSO DE PAGAMENTO */
+        /* ÁREA DE PAGAMENTO DINÂMICA */
         .payment-step {
             display: none;
             margin-top: 3.5rem;
@@ -130,34 +118,23 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.6rem;
             margin-top: 0;
-            color: var(--text-color);
         }
-
-        .price-tag {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--accent-color);
-            margin: 1.5rem 0;
-        }
-
-        .btn-pix {
+        
+        .pix-code-box {
             width: 100%;
-            padding: 1.2rem;
-            background-color: var(--accent-color);
-            color: #FFFFFF;
-            border: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
+            padding: 0.8rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            border: 1px dashed var(--accent-color);
+            background: #FFF;
+            color: #555;
+            text-align: center;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
         }
 
-        .btn-pix:hover {
-            background-color: #B8962E;
-        }
-
-        /* ESTILIZAÇÃO DO DOSSIÊ OCULTO */
+        /* ÁREA DO RELATÓRIO */
         .dossier-wrapper {
             display: none;
             margin-top: 3.5rem;
@@ -166,25 +143,9 @@
             text-align: left;
         }
 
-        .dossier-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .dossier-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 400;
-            margin: 0 0 0.5rem 0;
-        }
-
-        .dossier-header p {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 0.9rem;
-            color: var(--accent-color);
-            margin: 0;
-        }
+        .dossier-header { text-align: center; margin-bottom: 2rem; }
+        .dossier-header h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin: 0 0 0.5rem 0; }
+        .dossier-header p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; color: var(--accent-color); margin: 0; }
 
         .metric-card {
             background: #FAFAFA;
@@ -193,25 +154,10 @@
             border-left: 2px solid var(--text-color);
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
-
-        .metric-card.accent {
-            border-left-color: var(--accent-color);
-            background: #FFFDF9;
-        }
-
-        .metric-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666;
-        }
-
-        .metric-value {
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
+        .metric-card.accent { border-left-color: var(--accent-color); background: #FFFDF9; }
+        .metric-label { font-size: 0.8rem; text-transform: uppercase; color: #666; }
+        .metric-value { font-size: 1.05rem; font-weight: 500; }
 
         .final-price-box {
             text-align: center;
@@ -219,40 +165,22 @@
             color: #FFFFFF;
             padding: 2.5rem 1rem;
             margin: 2rem 0;
-            position: relative;
         }
-
-        .final-price-box .title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #CCCCCC;
-            margin-bottom: 0.5rem;
-        }
-
-        .final-price-box .value {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.4rem;
-            font-weight: 300;
-            color: var(--accent-color);
-        }
+        .final-price-box .title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: #CCC; margin-bottom: 0.5rem; }
+        .final-price-box .value { font-size: 2.4rem; font-weight: 300; color: var(--accent-color); }
 
         .btn-secondary {
-            width: 100%;
-            padding: 1rem;
-            background-color: transparent;
-            color: var(--text-color);
-            border: 1px solid var(--text-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            width: 100%; padding: 1rem; background-color: transparent; color: var(--text-color);
+            border: 1px solid var(--text-color); text-transform: uppercase; font-size: 0.8rem; cursor: pointer;
         }
+        .btn-secondary:hover { background-color: var(--text-color); color: #FFFFFF; }
 
-        .btn-secondary:hover {
-            background-color: var(--text-color);
-            color: #FFFFFF;
+        @media print {
+            body { background: #FFF; }
+            .container { box-shadow: none; border: none; }
+            .form-grid, .btn-primary, .payment-step { display: none !important; }
+            .dossier-wrapper { display: block !important; margin-top: 0; padding-top: 0; border: none; }
+            .btn-secondary { display: none; }
         }
     </style>
 </head>
@@ -267,74 +195,60 @@
                 <label for="materiais">Insumos e Materiais (R$)</label>
                 <input type="number" id="materiais" placeholder="0.00" step="0.01">
             </div>
-
             <div class="input-group">
                 <label for="valor-hora">Sua Hora de Trabalho (R$)</label>
                 <input type="number" id="valor-hora" placeholder="0.00" step="0.01">
             </div>
-
             <div class="input-group">
                 <label for="horas">Tempo Dedicado (Horas)</label>
                 <input type="number" id="horas" placeholder="0">
             </div>
-
             <div class="input-group">
                 <label for="extras">Custos Fixos & Embalagem (R$)</label>
                 <input type="number" id="extras" placeholder="0.00" step="0.01">
             </div>
-
             <div class="input-group">
                 <label for="lucro">Margem de Lucro (%)</label>
                 <input type="number" id="lucro" placeholder="0">
             </div>
         </div>
 
-        <button class="btn-primary" onclick="exibirCobranca()">Gerar Dossiê de Valor</button>
+        <button class="btn-primary" onclick="iniciarProcesso()">Gerar Dossiê de Valor</button>
 
-        <!-- PASSO DE COBRANÇA (PAYWALL) -->
         <div class="payment-step" id="payment-step">
-            <h2>Cálculo Concluído</h2>
-            <p style="color: #4A4A4A; font-size: 0.95rem; line-height: 1.6;">O seu dossiê detalhado foi formulado com precisão e encontra-se bloqueado por medidas de segurança.</p>
-            <div class="price-tag">R$ 1,00</div>
-            <p style="font-size: 0.8rem; color: #7A7A7A; margin-bottom: 2rem;">Realize o investimento simbólico para desbloquear a visualização imediata do seu laudo.</p>
-            
-            <button class="btn-pix" onclick="simularPagamentoAprovado()">Pagar via Pix (Teste)</button>
-        </div>
+            </div>
 
-        <!-- O DOSSIÊ EXCLUSIVO (BLOQUEADO INICIALMENTE) -->
         <div class="dossier-wrapper" id="dossier-wrapper">
             <div class="dossier-header">
                 <h2>Dossiê Exclusivo</h2>
                 <p>A inteligência financeira por trás do feito à mão</p>
             </div>
-            
             <div class="metric-card">
                 <span class="metric-label">Mão de Obra Alocada</span>
                 <span class="metric-value" id="res-mao-de-obra">R$ 0,00</span>
             </div>
-            
             <div class="metric-card">
                 <span class="metric-label">Custo Operacional Total</span>
                 <span class="metric-value" id="res-custo-total">R$ 0,00</span>
             </div>
-            
             <div class="metric-card accent">
                 <span class="metric-label">Retorno de Lucro Líquido</span>
                 <span class="metric-value" style="color: #B8962E; font-weight: 600;" id="res-lucro-liquido">R$ 0,00</span>
             </div>
-
             <div class="final-price-box">
                 <div class="title">Preço Sugerido para Comercialização</div>
                 <div class="value" id="res-preco-venda">R$ 0,00</div>
             </div>
-            
             <button class="btn-secondary" onclick="window.print()">Guardar ou Imprimir Relatório</button>
         </div>
     </div>
 
     <script>
-        // Etapa 1: Valida os dados e mostra a tela de pagamento
-        function exibirCobranca() {
+        // O LINK DO SEU SERVIDOR REPLIT FOI INSERIDO AQUI
+        const SERVIDOR_URL = 'https://cc0e8e6c-9516-4dcb-8c19-b17d214b50e9-00-2n5e3bn1waxez.picard.replit.dev';
+        let intervaloVerificacao;
+
+        async function iniciarProcesso() {
             const materiais = parseFloat(document.getElementById('materiais').value);
             const valorHora = parseFloat(document.getElementById('valor-hora').value);
             const horas = parseFloat(document.getElementById('horas').value);
@@ -342,45 +256,71 @@
             const lucro = parseFloat(document.getElementById('lucro').value);
 
             if(isNaN(materiais) || isNaN(valorHora) || isNaN(horas) || isNaN(extras) || isNaN(lucro)) {
-                alert("Por favor, preencha todos os campos do formulário de maneira apropriada.");
+                alert("Por gentileza, preencha todos os campos do formulário.");
                 return;
             }
 
-            // Oculta o dossiê (caso já esteja aberto) e exibe o pagamento
+            // Exibe a tela de carregamento elegante
             document.getElementById('dossier-wrapper').style.display = 'none';
             const paymentStep = document.getElementById('payment-step');
             paymentStep.style.display = 'block';
+            paymentStep.innerHTML = '<h2 style="color: #7A7A7A; font-size: 1.2rem;">Estabelecendo conexão segura com o banco...</h2>';
             paymentStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            const dadosOperacao = { materiais, valorHora, horas, extras, lucro };
+
+            try {
+                // Comunicação com o seu Replit
+                const resposta = await fetch(`${SERVIDOR_URL}/gerar-pix`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dadosOperacao)
+                });
+                
+                const dadosServidor = await resposta.json();
+
+                if(dadosServidor.paymentId) {
+                    exibirInterfacePix(dadosServidor);
+                    monitorarPagamento(dadosServidor.paymentId);
+                } else {
+                    paymentStep.innerHTML = '<h2>Ocorreu uma instabilidade na geração da chave. Tente novamente.</h2>';
+                }
+            } catch (error) {
+                paymentStep.innerHTML = '<h2>Não foi possível comunicar com o servidor no momento.</h2>';
+                console.error(error);
+            }
         }
 
-        // Etapa 2: Simula o aviso do banco de que o Pix foi pago e revela o cálculo
-        function simularPagamentoAprovado() {
-            // Captura os valores preenchidos
-            const materiais = parseFloat(document.getElementById('materiais').value);
-            const valorHora = parseFloat(document.getElementById('valor-hora').value);
-            const horas = parseFloat(document.getElementById('horas').value);
-            const extras = parseFloat(document.getElementById('extras').value);
-            const lucro = parseFloat(document.getElementById('lucro').value);
-
-            // Realiza a operação matemática (Futuramente isso sairá daqui e irá para o servidor)
-            const custoMaoDeObra = valorHora * horas;
-            const custoTotal = materiais + custoMaoDeObra + extras;
-            const valorLucro = custoTotal * (lucro / 100);
-            const precoVenda = custoTotal + valorLucro;
-
-            // Altera o texto visual do resultado
-            document.getElementById('res-mao-de-obra').innerText = "R$ " + custoMaoDeObra.toFixed(2).replace('.', ',');
-            document.getElementById('res-custo-total').innerText = "R$ " + custoTotal.toFixed(2).replace('.', ',');
-            document.getElementById('res-lucro-liquido').innerText = "R$ " + valorLucro.toFixed(2).replace('.', ',');
-            document.getElementById('res-preco-venda').innerText = "R$ " + precoVenda.toFixed(2).replace('.', ',');
-
-            // Oculta a área de pagamento e revela o Dossiê
-            document.getElementById('payment-step').style.display = 'none';
-            const dossier = document.getElementById('dossier-wrapper');
-            dossier.style.display = 'block';
-            dossier.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        function exibirInterfacePix(dados) {
+            const paymentStep = document.getElementById('payment-step');
+            paymentStep.innerHTML = `
+                <h2>Liberação do Dossiê</h2>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 2rem;">Realize o investimento simbólico de <strong>R$ 1,00</strong> para revelar seus cálculos exatos.</p>
+                
+                <img src="data:image/png;base64,${dados.qrCodeBase64}" alt="QR Code Pix" style="width: 200px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+                
+                <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #8A8A8A; margin-bottom: 0.5rem;">Ou copie o código Pix abaixo:</p>
+                <input type="text" class="pix-code-box" value="${dados.qrCode}" readonly onclick="copiarPix(this)">
+                
+                <p style="font-size: 0.8rem; color: var(--accent-color); margin-top: 1.5rem; font-style: italic;">
+                    Aguardando a confirmação do seu banco... O relatório surgirá automaticamente.
+                </p>
+            `;
         }
-    </script>
 
-</body>
-</html>
+        function copiarPix(elemento) {
+            elemento.select();
+            document.execCommand('copy');
+            alert("Código Pix copiado com sucesso! Abra o aplicativo do seu banco para colar.");
+        }
+
+        function monitorarPagamento(paymentId) {
+            // Pergunta ao servidor a cada 5 segundos se o Pix foi pago
+            intervaloVerificacao = setInterval(async () => {
+                try {
+                    const resposta = await fetch(`${SERVIDOR_URL}/status-pix/${paymentId}`);
+                    const dados = await resposta.json();
+
+                    if(dados.status === 'approved') {
+                        clearInterval(intervaloVerificacao); // Para de perguntar
+                        revelarDossiêMagico(dados.doss
