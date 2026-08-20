@@ -33,8 +33,8 @@
         .final-price-box { text-align: center; background: var(--text-color); color: #FFFFFF; padding: 2.5rem 1rem; margin: 2rem 0; }
         .final-price-box .title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: #CCC; margin-bottom: 0.5rem; }
         .final-price-box .value { font-size: 2.4rem; font-weight: 300; color: var(--accent-color); }
-        .btn-secondary { width: 100%; padding: 1rem; background-color: transparent; color: var(--text-color); border: 1px solid var(--text-color); text-transform: uppercase; font-size: 0.8rem; cursor: pointer; }
-        .btn-secondary:hover { background-color: var(--text-color); color: #FFFFFF; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid var(--accent-color); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 1rem auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -83,10 +83,9 @@
 
     <script>
         const SERVIDOR_URL = 'https://cc0e8e6c-9516-4dcb-8c19-b17d214b50e9-00-2n5e3bn1waxez.picard.replit.dev';
+        let radarIntervalo = null;
 
         async function iniciarProcesso() {
-            alert("PASSO 1: O botão foi clicado com sucesso. Lendo as variáveis...");
-
             const materiais = parseFloat(document.getElementById('materiais').value);
             const valorHora = parseFloat(document.getElementById('valor-hora').value);
             const horas = parseFloat(document.getElementById('horas').value);
@@ -94,14 +93,13 @@
             const lucro = parseFloat(document.getElementById('lucro').value);
 
             if(isNaN(materiais) || isNaN(valorHora) || isNaN(horas) || isNaN(extras) || isNaN(lucro)) {
-                alert("ERRO: Campos vazios detectados.");
+                alert("Por favor, preencha todos os campos para prosseguirmos com a análise.");
                 return;
             }
-
-            alert("PASSO 2: Dados matemáticos validados. Iniciando comunicação com o Replit...");
             
             document.getElementById('payment-step').style.display = 'block';
-            document.getElementById('payment-step').innerHTML = '<h2>Conectando ao banco...</h2>';
+            document.getElementById('dossier-wrapper').style.display = 'none';
+            document.getElementById('payment-step').innerHTML = '<h2>Conectando ao banco...</h2><div class="loader"></div>';
 
             try {
                 const resposta = await fetch(`${SERVIDOR_URL}/gerar-pix`, {
@@ -110,23 +108,72 @@
                     body: JSON.stringify({ materiais, valorHora, horas, extras, lucro })
                 });
                 
-                alert("PASSO 3: O Replit respondeu à chamada! Processando a resposta...");
                 const dadosServidor = await resposta.json();
 
                 if(dadosServidor.paymentId) {
-                    alert("PASSO 4: Sucesso absoluto! QR Code do Mercado Pago gerado.");
                     document.getElementById('payment-step').innerHTML = `
                         <h2>Liberação do Dossiê</h2>
+                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 1.5rem;">Aguardando a confirmação do seu pagamento...</p>
                         <img src="data:image/png;base64,${dadosServidor.qrCodeBase64}" alt="QR Code Pix" style="width: 200px; border-radius: 8px; margin-bottom: 1rem;">
-                        <input type="text" class="pix-code-box" value="${dadosServidor.qrCode}" readonly>
+                        <input type="text" class="pix-code-box" value="${dadosServidor.qrCode}" readonly onclick="this.select(); document.execCommand('copy'); alert('Código copiado com sucesso!');">
+                        <div class="loader"></div>
                     `;
+                    
+                    // Inicia a sondagem silenciosa para verificar a aprovação
+                    iniciarRadar(dadosServidor.paymentId);
                 } else {
-                    alert("ERRO: O servidor respondeu, mas não enviou o Pix. Verifique o console do Replit.");
+                    alert("Ocorreu um equívoco na geração do código. O servidor não retornou o identificador.");
                 }
             } catch (error) {
-                alert("FALHA CRÍTICA: Não foi possível alcançar o link do servidor Replit.");
+                alert("Não foi possível estabelecer conexão com a sua arquitetura no Replit.");
                 console.error(error);
             }
+        }
+        
+        function iniciarRadar(paymentId) {
+            // Assegura que radares anteriores sejam desativados
+            if(radarIntervalo) clearInterval(radarIntervalo);
+            
+            radarIntervalo = setInterval(async () => {
+                try {
+                    const res = await fetch(`${SERVIDOR_URL}/status-pix/${paymentId}`);
+                    const dados = await res.json();
+                    
+                    if(dados.status === 'approved') {
+                        // O pagamento foi confirmado. O radar é desligado.
+                        clearInterval(radarIntervalo);
+                        
+                        // Realiza o cálculo da matemática financeira
+                        calcularValoresFinais();
+                        
+                        // Executa a transição visual revelando o Dossiê
+                        document.getElementById('payment-step').style.display = 'none';
+                        document.getElementById('dossier-wrapper').style.display = 'block';
+                    }
+                } catch (err) {
+                    console.error("Erro no rastreamento:", err);
+                }
+            }, 5000); // A cada 5 segundos, uma verificação silenciosa é feita
+        }
+        
+        function calcularValoresFinais() {
+            const materiais = parseFloat(document.getElementById('materiais').value);
+            const valorHora = parseFloat(document.getElementById('valor-hora').value);
+            const horas = parseFloat(document.getElementById('horas').value);
+            const extras = parseFloat(document.getElementById('extras').value);
+            const lucro = parseFloat(document.getElementById('lucro').value);
+
+            const maoDeObra = valorHora * horas;
+            const custoTotal = materiais + maoDeObra + extras;
+            const valorLucro = custoTotal * (lucro / 100);
+            const precoVenda = custoTotal + valorLucro;
+
+            const formatarMoeda = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            document.getElementById('res-mao-de-obra').innerText = formatarMoeda(maoDeObra);
+            document.getElementById('res-custo-total').innerText = formatarMoeda(custoTotal);
+            document.getElementById('res-lucro-liquido').innerText = formatarMoeda(valorLucro);
+            document.getElementById('res-preco-venda').innerText = formatarMoeda(precoVenda);
         }
     </script>
 </body>
